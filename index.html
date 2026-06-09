@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pizzeria La Toscana Antigua — Menú</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#111;color:#f0ede8;font-family:'Nunito',sans-serif;min-height:100vh}
+
+/* HERO */
+.hero{background:linear-gradient(180deg,#000 0%,#1a1008 60%,#111 100%);padding:48px 20px 32px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(180,130,40,.18) 0%,transparent 70%);pointer-events:none}
+.hero-logo{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#c49a3c,#7d5a14);display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 16px;box-shadow:0 4px 24px rgba(196,154,60,.4)}
+.hero-sub{font-size:12px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:#c49a3c;margin-bottom:6px}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(32px,8vw,52px);font-weight:900;color:#fff;line-height:1.1;margin-bottom:6px}
+.hero-tagline{font-size:13px;color:#9a8a72;font-weight:600;letter-spacing:.1em;margin-bottom:20px}
+.hero-badge{display:inline-block;background:rgba(196,154,60,.15);border:1.5px solid rgba(196,154,60,.4);border-radius:20px;padding:6px 18px;font-size:12px;font-weight:700;color:#c49a3c;letter-spacing:.08em}
+
+/* NAV */
+.nav{background:#1a1a1a;border-bottom:1px solid #2a2a2a;padding:0 20px;display:flex;gap:0;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;position:sticky;top:0;z-index:100}
+.nav::-webkit-scrollbar{display:none}
+.nav-btn{padding:14px 18px;font-size:13px;font-weight:700;color:#7a6e62;background:none;border:none;border-bottom:2px solid transparent;cursor:pointer;white-space:nowrap;transition:all .2s;font-family:'Nunito',sans-serif}
+.nav-btn.on{color:#c49a3c;border-bottom-color:#c49a3c}
+
+/* SECTIONS */
+.section{padding:24px 16px;max-width:600px;margin:0 auto;display:none}
+.section.on{display:block}
+
+/* PIZZA CARD */
+.pizza-card{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:16px;margin-bottom:14px;overflow:hidden;transition:transform .2s,box-shadow .2s}
+.pizza-card:active{transform:scale(.98)}
+.pizza-card-body{padding:16px}
+.pizza-emoji{font-size:28px;margin-bottom:8px;display:block}
+.pizza-name{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:#fff;margin-bottom:4px}
+.pizza-ing{font-size:12px;color:#7a6e62;line-height:1.6;margin-bottom:12px;font-weight:600}
+.pizza-footer{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.pizza-price{font-family:'Courier New',monospace;font-size:22px;font-weight:900;color:#c49a3c}
+.pizza-size{font-size:11px;color:#5a4e42;font-weight:700;text-transform:uppercase;letter-spacing:.08em}
+.btn-pedir{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:10px;padding:9px 16px;font-size:13px;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:6px;white-space:nowrap;transition:all .2s;font-family:'Nunito',sans-serif}
+.btn-pedir:active{transform:scale(.95)}
+.btn-pedir svg{width:16px;height:16px;fill:#fff}
+
+/* POPULAR BADGE */
+.popular-badge{background:linear-gradient(135deg,#c49a3c,#7d5a14);color:#fff;font-size:10px;font-weight:800;padding:2px 8px;border-radius:20px;letter-spacing:.08em;text-transform:uppercase;display:inline-block;margin-bottom:6px}
+
+/* EXTRAS SECTION */
+.extra-item{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:10px;padding:12px 16px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
+.extra-name{font-weight:700;font-size:14px;color:#f0ede8}
+.extra-price{font-family:'Courier New',monospace;font-weight:800;color:#c49a3c;font-size:15px}
+
+/* OTROS */
+.otro-card{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:14px;padding:16px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.otro-info{flex:1}
+.otro-name{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#fff;margin-bottom:3px}
+.otro-desc{font-size:12px;color:#7a6e62;font-weight:600}
+
+/* INFO SECTION */
+.info-card{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:14px;padding:20px;margin-bottom:14px;text-align:center}
+.info-icon{font-size:32px;margin-bottom:8px}
+.info-title{font-size:13px;font-weight:800;color:#c49a3c;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px}
+.info-val{font-size:18px;font-weight:700;color:#fff}
+.info-sub{font-size:12px;color:#7a6e62;margin-top:3px}
+
+/* FOOTER */
+.footer{text-align:center;padding:32px 20px;background:#0d0d0d;border-top:1px solid #1a1a1a}
+.footer-logo{font-family:'Playfair Display',serif;font-size:20px;color:#c49a3c;font-weight:700;margin-bottom:4px}
+.footer-sub{font-size:11px;color:#5a4e42;letter-spacing:.1em;text-transform:uppercase}
+
+/* WHATSAPP FLOAT */
+.wa-float{position:fixed;bottom:20px;right:20px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:50px;padding:14px 20px;font-size:14px;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 4px 20px rgba(37,211,102,.4);z-index:200;font-family:'Nunito',sans-serif;transition:all .2s}
+.wa-float:active{transform:scale(.95)}
+
+@media(min-width:600px){
+  .section{padding:32px 20px}
+  .pizza-card{border-radius:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-logo">🍕</div>
+  <div class="hero-sub">Carrera 5A #39c-39 · La Arboleda, Cartago</div>
+  <div class="hero-title">Toscana<br>Antígua</div>
+  <div class="hero-tagline">Pizzería Artesanal · Cartago, Valle</div>
+  <div class="hero-badge">Pizzeta 22 cm · 4 porciones</div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <button class="nav-btn on" onclick="showSec('pizzas',this)">🍕 Pizzas</button>
+  <button class="nav-btn" onclick="showSec('otros',this)">🫕 Especiales</button>
+  <button class="nav-btn" onclick="showSec('extras',this)">➕ Extras</button>
+  <button class="nav-btn" onclick="showSec('info',this)">📍 Info</button>
+</nav>
+
+<!-- PIZZAS -->
+<section class="section on" id="sec-pizzas">
+
+  <div class="pizza-card">
+    <div class="pizza-card-body">
+      <div class="popular-badge">⭐ Popular</div>
+      <div class="pizza-name">Pepperoni</div>
+      <div class="pizza-ing">Salsa napolitana · Pepperoni · Queso mozarella · Queso semiduro artesanal · Finas hierbas</div>
+      <div class="pizza-footer">
+        <div>
+          <div class="pizza-price">$12.500</div>
+          <div class="pizza-size">Pizzeta 22cm</div>
+        </div>
+        <button class="btn-pedir" onclick="pedir('Pepperoni','$12.500')">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+          Pedir
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pizza-card">
+    <div class="pizza-card-body">
+      <div class="pizza-name">Hawaiana</div>
+      <div class="pizza-ing">Salsa napolitana · Jamón · Piña caramelizada · Dos quesos · Finas hierbas</div>
+      <div class="pizza-footer">
+        <div><div class="pizza-price">$12.500</div><div class="pizza-size">Pizzeta 22cm</div></div>
+        <button class="btn-pedir" onclick="pedir('Hawaiana','$12.500')">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+          Pedir
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pizza-card">
+    <div class="pizza-card-body">
+      <div class="pizza-name">Pollo y Champiñón</div>
+      <div class="pizza-ing">Base napolitana · Pollo · Champiñones frescos · Dos quesos</div>
+      <div class="pizza-footer">
+        <div><div class="pizza-price">$12.500</div><div class="pizza-size">Pizzeta 22cm</div></div>
+        <button class="btn-pedir" onclick="pedir('Pollo y Champiñon','$12.500')">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+          Pedir
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pizza-card">
+    <div class="pizza-card-body">
+      <div class="pizza-name">Jamón Dos Quesos</div>
+      <div class="pizza-ing">Queso mozarella · Queso semiduro artesanal · Salsa napolitana · Hierbas finas</div>
+      <div class="pizza-footer">
+        <div><div class="pizza-price">$12.500</div><div class="pizza-size">Pizzeta 22cm</div></div>
+        <button class="btn-pedir" onclick="pedir('Jamon Dos Quesos','$12.500')">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+          Pedir
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pizza-card">
+    <div class="pizza-card-body">
+      <div class="popular-badge">🌶️ Especial</div>
+      <div class="pizza-name">Mexicana</div>
+      <div class="pizza-ing">Salsa napolitana · Carne · Chorizo · Jamón · Jalapeños · Dos quesos · Pimientos · Hojuelas de chiles secos al limón · Pico de gallo</div>
+      <div class="pizza-footer">
+        <div><div class="pizza-price">$14.900</div><div class="pizza-size">Pizzeta 22cm</div></div>
+        <button class="btn-pedir" onclick="pedir('Mexicana','$14.900')">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+          Pedir
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pizza-card">
+    <div class="pizza-card-body">
+      <div class="popular-badge">🥩 Premium</div>
+      <div class="pizza-name">Toscana De Carnes</div>
+      <div class="pizza-ing">Jamón · Carne de res · Pierna de cerdo · Pollo · Chorizo · Queso mozzarella · Queso semiduro artesanal · Base napolitana</div>
+      <div class="pizza-footer">
+        <div><div class="pizza-price">$14.900</div><div class="pizza-size">Pizzeta 22cm</div></div>
+        <button class="btn-pedir" onclick="pedir('Toscana De Carnes','$14.900')">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+          Pedir
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pizza-card">
+    <div class="pizza-card-body">
+      <div class="pizza-name">Honolulu</div>
+      <div class="pizza-ing">Base napolitana · Piña caramelizada · Queso mozzarella · Queso semiduro artesanal · Pollo mechado · Jalapeños · Jamón · Hojuelas de chile al limón</div>
+      <div class="pizza-footer">
+        <div><div class="pizza-price">$12.500</div><div class="pizza-size">Pizzeta 22cm</div></div>
+        <button class="btn-pedir" onclick="pedir('Honolulu','$12.500')">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+          Pedir
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="pizza-card">
+    <div class="pizza-card-body">
+      <div class="pizza-name">Napolitana</div>
+      <div class="pizza-ing">Salsa napolitana · Queso mozarella · Queso semiduro artesanal · Hierbas finas</div>
+      <div class="pizza-footer">
+        <div><div class="pizza-price">$12.500</div><div class="pizza-size">Pizzeta 22cm</div></div>
+        <button class="btn-pedir" onclick="pedir('Napolitana','$12.500')">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+          Pedir
+        </button>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- OTROS -->
+<section class="section" id="sec-otros">
+  <div class="otro-card">
+    <div class="otro-info">
+      <div class="otro-name">🫕 Lasaña Bolonesa</div>
+      <div class="otro-desc">Carne · Salsa bolonesa · Bechamel · Pasta</div>
+      <div style="display:inline-block;margin-top:6px;background:rgba(196,154,60,.15);border:1px solid rgba(196,154,60,.3);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:700;color:#c49a3c">
+        📅 Solo fines de semana · Consulta disponibilidad
+      </div>
+    </div>
+    <div style="text-align:right">
+      <div class="pizza-price">$15.000</div>
+      <button class="btn-pedir" style="margin-top:8px" onclick="pedir('Lasana Bolonesa','$15.000')">
+        <svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+        Preguntar
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- EXTRAS -->
+<section class="section" id="sec-extras">
+  <p style="font-size:13px;color:#7a6e62;font-weight:600;margin-bottom:16px">Agrega ingredientes extra a tu pizza favorita</p>
+  <div class="extra-item"><span class="extra-name">🧀 Queso extra</span><span class="extra-price">+$2.000</span></div>
+  <div class="extra-item"><span class="extra-name">🍄 Champiñón</span><span class="extra-price">+$2.000</span></div>
+  <div class="extra-item"><span class="extra-name">🍍 Piña</span><span class="extra-price">+$2.000</span></div>
+  <div class="extra-item"><span class="extra-name">🍕 Pepperoni</span><span class="extra-price">+$3.000</span></div>
+  <div class="extra-item"><span class="extra-name">🌶️ Jalapeños</span><span class="extra-price">+$2.000</span></div>
+  <div style="margin-top:20px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:16px;text-align:center">
+    <div style="font-size:13px;color:#c49a3c;font-weight:700;margin-bottom:4px">🔀 Mitad y Mitad disponible</div>
+    <div style="font-size:12px;color:#7a6e62;font-weight:600">¿No te decides? Combina dos sabores en una sola pizza.<br>Pregunta por el precio al hacer tu pedido.</div>
+  </div>
+</section>
+
+<!-- INFO -->
+<section class="section" id="sec-info">
+  <div class="info-card">
+    <div class="info-icon">📍</div>
+    <div class="info-title">Ubicación</div>
+    <div class="info-val">Carrera 5A #39c-39</div>
+    <div class="info-sub">La Arboleda, Cartago, Valle</div>
+  </div>
+  <div class="info-card">
+    <div class="info-icon">📱</div>
+    <div class="info-title">WhatsApp / Domicilios</div>
+    <div class="info-val">312 509 34 24</div>
+    <div class="info-sub">Pedidos y domicilios</div>
+  </div>
+  <div class="info-card">
+    <div class="info-icon">🍕</div>
+    <div class="info-title">Nuestras Pizzas</div>
+    <div class="info-val">Pizzeta 22 cm</div>
+    <div class="info-sub">4 porciones · Masa artesanal</div>
+  </div>
+  <button onclick="pedirGeneral()" style="width:100%;padding:16px;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;border-radius:14px;font-size:16px;font-weight:800;cursor:pointer;font-family:'Nunito',sans-serif;display:flex;align-items:center;justify-content:center;gap:10px">
+    <svg viewBox="0 0 24 24" style="width:22px;height:22px;fill:#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+    Hacer un pedido por WhatsApp
+  </button>
+</section>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-logo">Pizzeria La Toscana Antigua</div>
+  <div class="footer-sub">Pizzería Artesanal · Cartago, Valle · Carrera 5A #39c-39 · La Arboleda, Cartago</div>
+</div>
+
+<!-- WHATSAPP FLOAT -->
+<button class="wa-float" onclick="pedirGeneral()">
+  <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:#fff"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10z"/></svg>
+  Pedir ahora
+</button>
+
+<script>
+var WA_NUMBER = '573125093424';
+
+function showSec(id, btn) {
+  document.querySelectorAll('.section').forEach(function(s){ s.classList.remove('on'); });
+  document.querySelectorAll('.nav-btn').forEach(function(b){ b.classList.remove('on'); });
+  document.getElementById('sec-'+id).classList.add('on');
+  btn.classList.add('on');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function pedir(pizza, precio) {
+  var msg = encodeURIComponent(
+    'Hola! 🍕 Quiero hacer un pedido en Pizzeria La Toscana Antigua:\n\n' +
+    '• ' + pizza + ' (' + precio + ')\n\n' +
+    'Por favor confirmar disponibilidad y tiempo de entrega. Gracias!'
+  );
+  window.open('https://wa.me/' + WA_NUMBER + '?text=' + msg, '_blank');
+}
+
+function pedirGeneral() {
+  var msg = encodeURIComponent(
+    'Hola! 🍕 Quiero hacer un pedido en Pizzeria La Toscana Antigua.\n\n' +
+    'Por favor enviarme el menú o confirmar disponibilidad. Gracias!'
+  );
+  window.open('https://wa.me/' + WA_NUMBER + '?text=' + msg, '_blank');
+}
+</script>
+</body>
+</html>
